@@ -12,7 +12,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     networks:
-      - credit-risk-net
+      - platform-net
 
   mlflow:
     image: ghcr.io/mlflow/mlflow:latest
@@ -34,16 +34,16 @@ services:
       - mlflow_artifacts:/mlflow/artifacts
     user: root
     networks:
-      - credit-risk-net
+      - platform-net
 
   frontend:
     build: ./frontend
     ports:
-      - "5173:5173"
+      - "3000:3000"
     depends_on:
       - api
     networks:
-      - credit-risk-net
+      - platform-net
 
   api:
     build: ./backend
@@ -76,5 +76,5 @@ volumes:
   mlflow_artifacts:
 
 networks:
-  credit-risk-net:
+  platform-net:
     driver: bridge
