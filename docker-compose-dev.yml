@@ -1,3 +1,5 @@
+
+
 services:
   postgres:
     image: postgres:16
@@ -10,7 +12,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     networks:
-      - ecl-platform-net
+      - credit-risk-net
 
   mlflow:
     image: ghcr.io/mlflow/mlflow:latest
@@ -27,12 +29,12 @@ services:
       --artifacts-destination /mlflow/artifacts
       --serve-artifacts
       --host 0.0.0.0
-      --allowed-hosts api,nginx,mlflow,mlflow:5000"
+      --allowed-hosts api,localhost,localhost:5000,mlflow:5000"
     volumes:
       - mlflow_artifacts:/mlflow/artifacts
     user: root
     networks:
-      - ecl-platform-net
+      - credit-risk-net
 
   frontend:
     build: ./frontend
@@ -41,7 +43,7 @@ services:
     depends_on:
       - api
     networks:
-      - ecl-platform-net
+      - credit-risk-net
 
   api:
     build: ./backend
@@ -54,25 +56,13 @@ services:
     depends_on:
       - mlflow
     networks:
-      - ecl-platform-net
+      - credit-risk-net
 
-
-  nginx:
-    image: nginx:alpine
-    ports:
-      - "80:80"
-    volumes:
-      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
-    depends_on:
-      - frontend
-      - api
-    networks:
-      - ecl-platform-net
 
 volumes:
   postgres_data:
   mlflow_artifacts:
 
 networks:
-  ecl-platform-net:
+  credit-risk-net:
     driver: bridge
