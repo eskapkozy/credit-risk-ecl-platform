@@ -60,6 +60,8 @@ Les variables suivantes sont identifiées comme sujettes au leakage et doivent �
 
 **Variables utilisables pour le PD** : profil emprunteur, score de crédit initial, LTV, DTI, type de bien, zone géographique, montant du prêt, durée du prêt.
 
+**Clarification post-cadrage modélisation** : la règle de leakage dépend du moment de prédiction. Une variable post-origination reste exclue du modèle **Origination PD**, mais peut devenir admissible dans le modèle **Behavioral PD** si elle est connue à la date d'observation `t` et calculée sans information future. La stratégie détaillée, les variables retenues et les cibles PD sont documentées dans `docs/PD_Modeling_Strategy.md`.
+
 ---
 
 ## 4. Représentativité — Compromis Validé
@@ -104,7 +106,7 @@ L'ingestion et le serving sont deux couches distinctes. L'architecture retenue e
 ## 7. Points Transmis aux Epics Suivants
 
 - Affiner la couverture LGD et EAD lors de la phase de modélisation
-- Confirmer la liste de features définitive après exploration approfondie du dataset
+- Confirmer la liste de features définitive après exploration approfondie du dataset, sur la base de `docs/PD_Modeling_Strategy.md`
 - Prévoir une stratégie de ré-entraînement sur données réelles en phase production
 - L'architecture hybride batch/stream est une contrainte à intégrer dès l'Epic 0.3 Architecture Decision
 
