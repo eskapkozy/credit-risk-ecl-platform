@@ -169,3 +169,18 @@ Suite à la session de validation client, les critères suivants ont été préc
 
 *Document versé dans le repo projet — Référentiel officiel du pré-projet*
 *Prochaine révision : à l'issue de l'Epic 0.2 si les critères data évoluent*
+
+
+### 2.3 Default Definition — Décision client (session Juin 2026)
+
+| Paramètre                  | Valeur retenue         |
+|---------------------------|------------------------|
+| Seuil de défaut           | 90 DPD                 |
+| Référentiel d'alignement  | IFRS 9 / Bâle III      |
+| Justification             | Caractère saisonnier du crédit immobilier — un cycle court ne suffit pas à statuer sur un défaut structurel |
+| Dataset de référence      | Freddie Mac SFLLD — crédit immobilier 360 mois |
+| Repositionnement projet   | L'équipe se positionne comme équipe crédit immobilier pour la phase de recherche — le parallèle BNPL est abandonné |
+
+> **Note** : Le seuil 90 DPD est le standard réglementaire reconnu pour le crédit immobilier.
+> Il est retenu tel quel sans ajustement sectoriel, le dataset Freddie Mac étant
+> utilisé dans un contexte d'apprentissage et non de production BNPL.

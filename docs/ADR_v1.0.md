@@ -158,6 +158,9 @@ Seul Nginx est exposé à l'extérieur. Tous les services communiquent exclusive
 
 ---
 
+
+
+
 ## 8. Feu Vert pour la Phase Projet
 
 | Condition | Statut |
@@ -171,6 +174,42 @@ Seul Nginx est exposé à l'extérieur. Tous les services communiquent exclusive
 **La phase Projet est débloquée.**
 
 ---
+
+### ADR-XX — Ordre des opérations de préparation des données
+
+**Contexte**
+Le dataset Freddie Mac présente un déséquilibre de classes marqué —
+les défauts représentent une minorité des observations.
+La question de l'ordre des opérations de rééquilibrage a été tranchée
+en session client Juin 2026.
+
+**Décision**
+
+| Étape | Opération                              | Table concernée         |
+|-------|----------------------------------------|-------------------------|
+| 1     | Cleaning                               | Historique brut         |
+| 2     | Construction des agrégats / features   | Historique brut         |
+| 3     | Jointure avec table origination        | Table jointe            |
+| 4     | Oversampling / rééquilibrage           | Table jointe agrégée    |
+
+**Justification**
+Le rééquilibrage appliqué avant la jointure rompt l'intégrité
+référentielle — les LOAN_SEQUENCE_NUMBER dupliqués par oversampling
+n'ont pas de correspondance dans la table origination.
+Le rééquilibrage doit donc intervenir uniquement sur la table finale,
+après que chaque prêt est représenté par une seule ligne agrégée.
+
+**Fenêtre d'observation retenue**
+
+| Paramètre             | Valeur   |
+|-----------------------|----------|
+| Fenêtre d'observation | 12 mois  |
+| Outcome window        | 12 mois  |
+| Seuil de défaut       | 90 DPD   |
+
+**Statut** : Décision actée — applicable dès Epic 0.2
+
+
 
 *Document versé dans le repo projet — platform/docs/ADR_v1.0.md*
 *Constitue le référentiel technique officiel pour toute la phase Projet*
