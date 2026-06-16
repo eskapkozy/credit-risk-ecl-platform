@@ -56,7 +56,7 @@ services:
     depends_on:
       - mlflow
     networks:
-      - credit-risk-net
+      - platform-net
 
 
   nginx:
@@ -69,7 +69,7 @@ services:
       - frontend
       - api
     networks:
-      - credit-risk-net
+      - platform-net
 
 volumes:
   postgres_data:

@@ -53,6 +53,7 @@ services:
       - MLFLOW_TRACKING_URI=http://mlflow:5000
       - MLFLOW_CONFIG_PATH=/app/configs/mlflow_config.yaml
       - MODEL_CONFIG_PATH=/app/configs/model_config.yaml
+      - MODEL_DATA_PATH=/app/data/raw
     depends_on:
       - mlflow
     networks:

@@ -1,0 +1,15 @@
+# raw data
+Backend/data/raw/
+
+# processed
+Backend/data/processed/
+
+# working
+Backend/data/working/
+
+# notebooks
+Backend/notebooks/
+
+# cache
+__pycache__/
+*.pyc
