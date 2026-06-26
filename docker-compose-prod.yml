@@ -14,6 +14,20 @@ services:
     networks:
       - platform-net
 
+  warehouse:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: warehouse_user
+      POSTGRES_PASSWORD: warehouse_eskap
+      POSTGRES_DB: warehouse
+    ports:
+      - "5433:5432"
+    volumes:
+      - warehouse_data:/var/lib/postgresql/data
+      - ./Backend/src/api/warehouse/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - platform-net
+
   mlflow:
     image: ghcr.io/mlflow/mlflow:latest
     ports:
@@ -53,6 +67,7 @@ services:
       - MLFLOW_TRACKING_URI=http://mlflow:5000
       - MLFLOW_CONFIG_PATH=/app/configs/mlflow_config.yaml
       - MODEL_CONFIG_PATH=/app/configs/model_config.yaml
+      - WAREHOUSE_URL=postgresql://warehouse_user:warehouse_eskap@warehouse:5432/warehouse
     depends_on:
       - mlflow
     networks:
@@ -74,6 +89,7 @@ services:
 volumes:
   postgres_data:
   mlflow_artifacts:
+  warehouse_data:
 
 networks:
   platform-net:
