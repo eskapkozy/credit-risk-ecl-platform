@@ -65,8 +65,10 @@ services:
       - "8000:8000"
     environment:
       - MLFLOW_TRACKING_URI=http://mlflow:5000
-      - MLFLOW_CONFIG_PATH=/app/configs/mlflow_config.yaml
-      - MODEL_CONFIG_PATH=/app/configs/model_config.yaml
+      - LGD_MLFLOW_CONFIG_PATH=/app/configs/Lgd_mlFlow_config.yaml
+      - LGD_MODEL_CONFIG_PATH=/app/configs/Lgd_model_config.yaml
+      - PD_MLFLOW_CONFIG_PATH=/app/configs/Pd_mlflow_config.yaml
+      - PD_MODEL_CONFIG_PATH=/app/configs/Pd_model_config.yaml
       - MODEL_DATA_PATH=/app/data/raw
       - WAREHOUSE_URL=postgresql://warehouse_user:warehouse_eskap@warehouse:5432/warehouse
     depends_on:
