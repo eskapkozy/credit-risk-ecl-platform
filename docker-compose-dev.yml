@@ -64,6 +64,7 @@ services:
     ports:
       - "8000:8000"
     environment:
+      - PYTHONPATH=/app
       - MLFLOW_TRACKING_URI=http://mlflow:5000
       - LGD_MLFLOW_CONFIG_PATH=/app/configs/Lgd_mlFlow_config.yaml
       - LGD_MODEL_CONFIG_PATH=/app/configs/Lgd_model_config.yaml
